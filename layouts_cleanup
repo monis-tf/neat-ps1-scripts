@@ -1,7 +1,10 @@
 ## Disclaimer: Claude Sonnet 5.5 (LLM) was used in creation of this script.
 
 ## Motivation for writing this script: windows 11 would constantly add the default layouts for en_US and pt_PT
-## while I only wanted to keep the US-International layouts for both of these languages.
+## languages, while I only wanted to keep the US-International keyboard layout for both of these languages.
+
+## Enabled layouts can be modified via GUI in the native Settings app. (add & remove if layout appears in selection menu but doesn't in settings)
+## his script exists for convenience and optional automatic execution (task scheduler).
 
 # This should not be necessary, uncomment the line below if you get permission errors.
 #if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
