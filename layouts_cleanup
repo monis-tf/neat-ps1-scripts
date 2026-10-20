@@ -1,0 +1,21 @@
+## Disclaimer: Claude Sonnet 5.5 (LLM) was used in creation of this script.
+
+## Motivation for writing this script: windows 11 would constantly add the default layouts for en_US and pt_PT
+## while I only wanted to keep the US-International layouts for both of these languages.
+
+# This should not be necessary, uncomment the line below if you get permission errors.
+#if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+
+# Step 1: reset to a minimal list so the old en-US layout registration is dropped
+$List = New-WinUserLanguageList en-US
+$List[0].InputMethodTips.Clear()
+Set-WinUserLanguageList $List -Force
+
+# Step 2: write the real list. This example uses en-US and pt-PT as index 0 and 1 languages, and sets the US-International layout for both of them.
+# US-International identifier is 0409:00020409, you can find yours here (I think): https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/default-input-locales-for-windows-language-packs
+# Modify the languages, layout and indexes as you need.
+$List = New-WinUserLanguageList en-US
+$List.Add("pt-PT"); $List.Add("ru-RU")
+$List[0].InputMethodTips.Clear(); $List[1].InputMethodTips.Clear()
+$List[0].InputMethodTips.Add("0409:00020409"); $List[1].InputMethodTips.Add("0409:00020409")
+Set-WinUserLanguageList $List -Force
